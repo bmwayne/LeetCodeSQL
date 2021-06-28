@@ -1,0 +1,6 @@
+with cte as
+(
+    select id,email, row_number() over(partition by email order by id) as dups from Person
+)
+
+delete from person where id in (select id from cte where dups > 1);
