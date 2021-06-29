@@ -1,0 +1,7 @@
+with cte AS
+(
+    select num, lead(num) over(order by id) as nextconsec, lag(num) over(order by id) as prevconsec from logs
+)
+
+select distinct num as ConsecutiveNums from cte
+where num = nextconsec and num = prevconsec;
