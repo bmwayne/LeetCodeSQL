@@ -1,0 +1,8 @@
+with cte as
+(
+    select *,rank() over(partition by DepartmentId order by Salary desc) as highest from Employee
+)
+
+select d.Name as Department, c.Name as Employee,c.Salary
+from cte c, Department d
+where c.DepartmentId = d.Id and c.highest = 1;
