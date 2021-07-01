@@ -1,0 +1,12 @@
+with emp as
+(
+    select *,dense_rank() over(partition by departmentid order by salary desc) as rnk from employee
+)
+
+select d.name as Department, e.name as Employee, e.salary as Salary
+from emp e
+inner join
+department d
+on e.departmentid = d.id
+where e.rnk <=3
+order by Department, Salary desc;
