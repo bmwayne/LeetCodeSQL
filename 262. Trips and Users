@@ -31,7 +31,7 @@ totalreq as
 
 cancelledreq as
 (
-    select request_at, sum(case when 'status' like 'cancelled_by_%' then 1 else 0 end) as cancelreqcount 
+    select request_at, count(case when `status` like 'cancelled_by_%' then `status` end) as cancelreqcount 
     from totaldata 
     group by request_at 
 )
